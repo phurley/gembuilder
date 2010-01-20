@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby 
+
+require 'rubygems'
+require 'gembuilderlib'
+require 'optparse'
+
+opts = OptionParser.new
+
+conservative = false
+
+opts.banner = "Usage: gembuilder [options] gem_file_name"
+opts.on("-d", "--debug", "Enable debug output") { $DEBUG = 1 }
+opts.on("-c", "--conservative", "Do not try and remove intermediate files") { conservative = true }
+
+opts.on("-h", "--help", "Show this message") do
+  puts opts
+  exit
+end
+
+argv = opts.parse(ARGV)
+
+if argv.empty?
+  puts "You must provide the name of a gem on the command line."
+  exit 1
+end
+
+argv.each do |gem|
+  unless File.exists?(gem)
+    puts "Skipping #{gem}, file not found."
+    next
+  end
+
+  gem_builder = GemBuilderLib.new(gem)
+
+  puts "Unpacking #{gem}"
+  gem_builder.unpack_gem
+
+  puts "   building extension(s)"
+  gem_builder.build_extensions
+
+  puts "   adjusting gemspec"
+  gem_builder.fix_gemspec(conservative)
+
+  puts "   building binary gem"
+  gem_builder.build_gem
+
+  puts "   cleaning up"
+  gem_builder.cleanup
+end
+

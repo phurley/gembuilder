@@ -1,0 +1,19 @@
+== 1.2.0 / 2010-10-19
+
+* Updated to work with rubygems 1.3.x
+
+* Tested under Ruby 1.9.x
+
+== 1.1.1 / 2007-05-19
+
+* Rename gembuilder.rb to gembuilderlib.rb -- capgem is using gembuilder.rb 
+  without nesting it into a subdir and it is easier to change my code
+
+== 1.1.0 / 2007-05-19
+
+* Cleanup code for release
+
+== 1.0.0 / 2007-05-11
+
+* Initial (very sloppy) gemification
+

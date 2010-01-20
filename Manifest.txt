@@ -1,0 +1,8 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/gembuilder
+lib/gembuilderlib.rb
+test/helloc-1.0.0.gem
+test/test_gembuilderlib.rb
